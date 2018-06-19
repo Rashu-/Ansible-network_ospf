@@ -1,0 +1,4 @@
+---
+# Define the ospf global and interface settings to be configured (see README for examples)
+vrfs: { }
+interfaces: { }
