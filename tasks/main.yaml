@@ -33,23 +33,23 @@
 
 - name: Configure ospf interface settings
   nxos_interface_ospf:
-    interface: "{{ item.value.name }}"
-    ospf: "{{ item.value.ospf.ospf_id }}"  
-    area: "{{ item.value.ospf.area_id }}"
-    state: "{{ item.value.ospf.state | default(omit) }}"
-    cost: "{{ item.value.ospf.cost | default(omit) }}"
-    dead_interval: "{{ item.value.ospf.dead_interval | default(omit) }}"     
-    hello_interval: "{{ item.value.ospf.hello_interval | default(omit) }}"
-    message_digest: "{{ item.value.ospf.message_digest | default(omit) }}"
-    message_digest_algorithm_type: "{{ item.value.ospf.md_alg_type | default(omit) }}"
-    message_digest_encryption_type: "{{ item.value.ospf.md_encrypt_type | default(omit) }}"
-    message_digest_key_id: "{{ item.value.ospf.md_key_id | default(omit) }}"
-    message_digest_password: "{{ item.value.ospf.md_password | default(omit) }}"
-    passive_interface: "{{ item.value.ospf.passive_interface | default(omit) }}"    
-  loop: "{{ interfaces | dict2items }}"
+    interface: "{{ item.name }}"
+    ospf: "{{ item.ospf.ospf_id }}"  
+    area: "{{ item.ospf.area_id }}"
+    state: "{{ item.ospf.state | default(omit) }}"
+    cost: "{{ item.ospf.cost | default(omit) }}"
+    dead_interval: "{{ item.ospf.dead_interval | default(omit) }}"     
+    hello_interval: "{{ item.ospf.hello_interval | default(omit) }}"
+    message_digest: "{{ item.ospf.message_digest | default(omit) }}"
+    message_digest_algorithm_type: "{{ item.ospf.md_alg_type | default(omit) }}"
+    message_digest_encryption_type: "{{ item.ospf.md_encrypt_type | default(omit) }}"
+    message_digest_key_id: "{{ item.ospf.md_key_id | default(omit) }}"
+    message_digest_password: "{{ item.ospf.md_password | default(omit) }}"
+    passive_interface: "{{ item.ospf.passive_interface | default(omit) }}"    
+  loop: "{{ interfaces | net_int_filter }}"
   when: >
     ansible_network_os == 'nxos' and  
-    item.value.ospf is defined
+    item.ospf is defined
   tags: 
     - ospf_config
     - nxos  
